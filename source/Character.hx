@@ -77,6 +77,8 @@ class Character extends FlxSprite
 	public var noAntialiasing:Bool = false;
 	public var originalFlipX:Bool = false;
 	public var healthColorArray:Array<Int> = [255, 0, 0];
+	
+	var notUsual:Bool = false;
 
 	public static var DEFAULT_CHARACTER:String = 'bf'; //In case a character is missing, it will use BF on its place
 	public function new(x:Float, y:Float, ?character:String = 'bf', ?isPlayer:Bool = false)
@@ -95,8 +97,14 @@ class Character extends FlxSprite
 		switch (curCharacter)
 		{
 			//case 'your character name in case you want to hardcode them instead':
-
 			default:
+				switch (curCharacter)
+				{
+					case 'matt' | 'tom' | 'tordext':
+						notUsual = true;
+					default:
+						notUsual = false;
+				}
 				var characterPath:String = 'characters/' + curCharacter + '.json';
 				#if MODS_ALLOWED
 				
@@ -235,7 +243,7 @@ class Character extends FlxSprite
 		}
 		originalFlipX = flipX;
 
-		if(animOffsets.exists('singLEFTmiss') || animOffsets.exists('singDOWNmiss') || animOffsets.exists('singUPmiss') || animOffsets.exists('singRIGHTmiss')) hasMissAnimations = true;
+		if((animOffsets.exists('singLEFTmiss') || animOffsets.exists('singDOWNmiss') || animOffsets.exists('singUPmiss') || animOffsets.exists('singRIGHTmiss')) || curCharacter == 'edd') hasMissAnimations = true;
 		recalculateDanceIdle();
 		dance();
 
@@ -267,44 +275,40 @@ class Character extends FlxSprite
 
 	override function update(elapsed:Float)
 	{
-		if(!debugMode && animation.curAnim != null)
-		{
-			if(heyTimer > 0)
+			if(!debugMode && animation.curAnim != null && !notUsual)
 			{
-				heyTimer -= elapsed;
-				if(heyTimer <= 0)
+				if(heyTimer > 0)
 				{
-					if(specialAnim && animation.curAnim.name == 'hey' || animation.curAnim.name == 'cheer')
+					heyTimer -= elapsed;
+					if(heyTimer <= 0)
 					{
-						specialAnim = false;
-						dance();
+						if(specialAnim && animation.curAnim.name == 'hey' || animation.curAnim.name == 'cheer')
+						{
+							specialAnim = false;
+							dance();
+						}
+						heyTimer = 0;
 					}
-					heyTimer = 0;
 				}
-			} else if(specialAnim && animation.curAnim.finished)
-			{
-				specialAnim = false;
-				dance();
-			}
 
-			if (!isPlayer)
-			{
-				if (animation.curAnim.name.startsWith('sing'))
+				if (!isPlayer)
 				{
-					holdTimer += elapsed;
+					if (animation.curAnim.name.startsWith('sing'))
+					{
+						holdTimer += elapsed;
+					}
+
+					if (holdTimer >= Conductor.stepCrochet * 0.001 * singDuration)
+					{
+						dance();
+						holdTimer = 0;
+					}
 				}
 
-				if (holdTimer >= Conductor.stepCrochet * 0.001 * singDuration)
+				if(animation.curAnim.finished && animation.getByName(animation.curAnim.name + '-loop') != null)
 				{
-					dance();
-					holdTimer = 0;
+					playAnim(animation.curAnim.name + '-loop');
 				}
-			}
-
-			if(animation.curAnim.finished && animation.getByName(animation.curAnim.name + '-loop') != null)
-			{
-				playAnim(animation.curAnim.name + '-loop');
-			}
 		}
 		super.update(elapsed);
 	}
@@ -316,26 +320,29 @@ class Character extends FlxSprite
 	 */
 	public function dance()
 	{
-		if (!debugMode && !specialAnim)
+		if (!notUsual)
 		{
-			if(danceIdle)
+			if (!debugMode && !specialAnim)
 			{
-				danced = !danced;
+				if(danceIdle)
+				{
+					danced = !danced;
 
-				if (danced)
-					playAnim('danceRight' + idleSuffix);
-				else
-					playAnim('danceLeft' + idleSuffix);
-			}
-			else if(animation.getByName('idle' + idleSuffix) != null) {
-					playAnim('idle' + idleSuffix);
+					if (danced)
+						playAnim('danceRight' + idleSuffix);
+					else
+						playAnim('danceLeft' + idleSuffix);
+				}
+				else if(animation.getByName('idle' + idleSuffix) != null) {
+						playAnim('idle' + idleSuffix);
+				}
 			}
 		}
 	}
 
-	public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
+	public function playAnim(AnimName:String, Force:Bool = false, special:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
 	{
-		specialAnim = false;
+		specialAnim = special;
 		animation.play(AnimName, Force, Reversed, Frame);
 
 		var daOffset = animOffsets.get(AnimName);

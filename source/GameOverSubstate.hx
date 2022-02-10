@@ -35,6 +35,7 @@ class GameOverSubstate extends MusicBeatSubstate
 
 	override function create()
 	{
+		
 		instance = this;
 		PlayState.instance.callOnLuas('onGameOverStart', []);
 
@@ -62,6 +63,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		// FlxG.camera.focusOn(FlxPoint.get(FlxG.width / 2, FlxG.height / 2));
 		FlxG.camera.scroll.set();
 		FlxG.camera.target = null;
+		FlxG.camera.zoom = 0.7;
 
 		boyfriend.playAnim('firstDeath');
 

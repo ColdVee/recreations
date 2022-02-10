@@ -1,0 +1,229 @@
+{
+	"animations": [
+		{
+			"loop": true,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "harpoon-idle",
+			"fps": 24,
+			"name": "TomHarpoonLine",
+			"indices": [
+				3,
+				3,
+				4,
+				4
+			]
+		},
+		{
+			"loop": true,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "harpoon-end",
+			"fps": 24,
+			"name": "TomHarpoonLine",
+			"indices": [
+				18,
+				19,
+				20,
+				21
+			]
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "dash",
+			"fps": 24,
+			"name": "Tom Running In",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				1,
+				4
+			],
+			"anim": "turn",
+			"fps": 24,
+			"name": "TomReaction",
+			"indices": []
+		},
+		{
+			"loop": true,
+			"offsets": [
+				0,
+				7
+			],
+			"anim": "walking",
+			"fps": 24,
+			"name": "TomWalkingBy",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				7,
+				0
+			],
+			"anim": "transition",
+			"fps": 24,
+			"name": "TomTransition",
+			"indices": []
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13
+			],
+			"name": "TomLooking"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle-trans",
+			"indices": [
+				14,
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21
+			],
+			"name": "TomLooking"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle-alt",
+			"indices": [
+				22,
+				23,
+				24,
+				25,
+				26,
+				27,
+				28,
+				29
+			],
+			"name": "TomLooking"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "idle-transbf",
+			"fps": 24,
+			"name": "TomLooking",
+			"indices": [
+				21,
+				20,
+				19,
+				18,
+				17,
+				16,
+				15,
+				14
+			]
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17
+			],
+			"fps": 24,
+			"anim": "harpoon-talk",
+			"loop": false,
+			"name": "TomHarpoonLine"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17
+			],
+			"fps": 24,
+			"anim": "harpoon-talking",
+			"loop": false,
+			"name": "TomHarpoonLine"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "challenges/edds/tom",
+	"position": [
+		0,
+		0
+	],
+	"healthicon": "face",
+	"flip_x": false,
+	"healthbar_colors": [
+		161,
+		161,
+		161
+	],
+	"camera_position": [
+		0,
+		0
+	],
+	"sing_duration": 6.1,
+	"scale": 1.5
+}

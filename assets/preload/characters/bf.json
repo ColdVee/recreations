@@ -197,13 +197,46 @@
 			"fps": 24,
 			"name": "bf pre attack",
 			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-8,
+				-17
+			],
+			"anim": "reaction1",
+			"fps": 24,
+			"name": "BF Ground Shaking",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-16,
+				-3
+			],
+			"anim": "reaction2",
+			"fps": 24,
+			"name": "BF Look At Tord",
+			"indices": []
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [],
+			"fps": 25,
+			"anim": "lookup",
+			"loop": false,
+			"name": "BF LookUp"
 		}
 	],
 	"no_antialiasing": false,
 	"image": "characters/BOYFRIEND",
 	"position": [
 		0,
-		350
+		0
 	],
 	"healthicon": "bf",
 	"flip_x": true,

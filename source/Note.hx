@@ -23,6 +23,7 @@ class Note extends FlxSprite
 	public var hitByOpponent:Bool = false;
 	public var noteWasHit:Bool = false;
 	public var prevNote:Note;
+	public var hit:Bool = false;
 
 	public var sustainLength:Float = 0;
 	public var isSustainNote:Bool = false;
@@ -36,6 +37,8 @@ class Note extends FlxSprite
 	public var colorSwap:ColorSwap;
 	public var inEditor:Bool = false;
 	public var gfNote:Bool = false;
+	public var dadNote:Bool = false;
+	public var extraFoe:Bool = false;
 	private var earlyHitMult:Float = 0.5;
 
 	public static var swagWidth:Float = 160 * 0.7;
@@ -51,6 +54,7 @@ class Note extends FlxSprite
 	public var noteSplashSat:Float = 0;
 	public var noteSplashBrt:Float = 0;
 
+	public var speedOffset:Float = 1;
 	public var offsetX:Float = 0;
 	public var offsetY:Float = 0;
 	public var offsetAngle:Float = 0;
@@ -86,6 +90,12 @@ class Note extends FlxSprite
 
 		if(noteData > -1 && noteType != value) {
 			switch(value) {
+				case 'Extra Foe Sing':
+					extraFoe = true;
+				case 'dad Sing':
+					dadNote = true;
+				case 'dad SingFAST':
+					dadNote = true;
 				case 'Hurt Note':
 					ignoreNote = mustPress;
 					reloadNote('HURT');
@@ -103,6 +113,13 @@ class Note extends FlxSprite
 					noAnimation = true;
 				case 'GF Sing':
 					gfNote = true;
+				case 'Missile':
+					noAnimation = true;
+					missHealth = 1;
+					hitHealth = 0;
+					speedOffset = 1.65;
+					reloadNote('', 'Missile');
+					noteSplashTexture = 'Explosion';
 			}
 			noteType = value;
 		}
@@ -233,7 +250,6 @@ class Note extends FlxSprite
 				skin = 'NOTE_assets';
 			}
 		}
-
 		var animName:String = null;
 		if(animation.curAnim != null) {
 			animName = animation.curAnim.name;
@@ -244,31 +260,40 @@ class Note extends FlxSprite
 
 		var lastScaleY:Float = scale.y;
 		var blahblah:String = arraySkin.join('/');
-		if(PlayState.isPixelStage) {
-			if(isSustainNote) {
-				loadGraphic(Paths.image('pixelUI/' + blahblah + 'ENDS'));
-				width = width / 4;
-				height = height / 2;
-				loadGraphic(Paths.image('pixelUI/' + blahblah + 'ENDS'), true, Math.floor(width), Math.floor(height));
+		if (noteType != 'Missile')
+		{
+			if(PlayState.isPixelStage) {
+				if(isSustainNote) {
+					loadGraphic(Paths.image('pixelUI/' + blahblah + 'ENDS'));
+					width = width / 4;
+					height = height / 2;
+					loadGraphic(Paths.image('pixelUI/' + blahblah + 'ENDS'), true, Math.floor(width), Math.floor(height));
+				} else {
+					loadGraphic(Paths.image('pixelUI/' + blahblah));
+					width = width / 4;
+					height = height / 5;
+					loadGraphic(Paths.image('pixelUI/' + blahblah), true, Math.floor(width), Math.floor(height));
+				}
+				setGraphicSize(Std.int(width * PlayState.daPixelZoom));
+				loadPixelNoteAnims();
+				antialiasing = false;
 			} else {
-				loadGraphic(Paths.image('pixelUI/' + blahblah));
-				width = width / 4;
-				height = height / 5;
-				loadGraphic(Paths.image('pixelUI/' + blahblah), true, Math.floor(width), Math.floor(height));
+				frames = Paths.getSparrowAtlas(blahblah);
+				loadNoteAnims();
+				antialiasing = ClientPrefs.globalAntialiasing;
 			}
-			setGraphicSize(Std.int(width * PlayState.daPixelZoom));
-			loadPixelNoteAnims();
-			antialiasing = false;
-		} else {
-			frames = Paths.getSparrowAtlas(blahblah);
-			loadNoteAnims();
-			antialiasing = ClientPrefs.globalAntialiasing;
+			if(isSustainNote) {
+				scale.y = lastScaleY;
+				if(ClientPrefs.keSustains) {
+					scale.y *= 0.75;
+				}
+			}
 		}
-		if(isSustainNote) {
-			scale.y = lastScaleY;
-			if(ClientPrefs.keSustains) {
-				scale.y *= 0.75;
-			}
+		else
+		{
+			frames = Paths.getSparrowAtlas('Missile');
+			loadMissileAnims();
+			antialiasing = ClientPrefs.globalAntialiasing;
 		}
 		updateHitbox();
 
@@ -281,6 +306,14 @@ class Note extends FlxSprite
 		}
 	}
 
+	function loadMissileAnims()
+	{
+		animation.addByPrefix('greenScroll', 'Rocket!!!!');
+		animation.addByPrefix('redScroll', 'Rocket!!!!');
+		animation.addByPrefix('blueScroll', 'Rocket!!!!');
+		animation.addByPrefix('purpleScroll', 'Rocket!!!!');
+	}
+	
 	function loadNoteAnims() {
 		animation.addByPrefix('greenScroll', 'green0');
 		animation.addByPrefix('redScroll', 'red0');

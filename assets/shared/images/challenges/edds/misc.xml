@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="misc.png">
+	<!-- Created with Adobe Animate version 20.0.3.25487 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="TordBot0000" x="20" y="20" width="765" height="663"/>
+	<SubTexture name="TordBot0001" x="20" y="20" width="765" height="663"/>
+	<SubTexture name="TordBot0002" x="805" y="20" width="765" height="663"/>
+	<SubTexture name="TordBot0003" x="805" y="20" width="765" height="663"/>
+	<SubTexture name="TordBotBlowingUp0000" x="1590" y="20" width="1731" height="852"/>
+	<SubTexture name="TordBotBlowingUp0001" x="3341" y="20" width="1731" height="852"/>
+	<SubTexture name="TordBotBlowingUp0002" x="1590" y="20" width="1731" height="852"/>
+	<SubTexture name="TordBotBlowingUp0003" x="3341" y="20" width="1731" height="852"/>
+	<SubTexture name="TordBotBlowingUp0004" x="5092" y="20" width="1731" height="852"/>
+	<SubTexture name="TordBotBlowingUp0005" x="5092" y="20" width="1731" height="852"/>
+	<SubTexture name="TordBotBlowingUp0006" x="20" y="892" width="1731" height="852"/>
+	<SubTexture name="TordBotBlowingUp0007" x="20" y="892" width="1731" height="852"/>
+	<SubTexture name="TordBotBlowingUp0008" x="1771" y="892" width="1731" height="852"/>
+	<SubTexture name="TordBotBlowingUp0009" x="3522" y="892" width="1731" height="852"/>
+	<SubTexture name="TordBotBlowingUp0010" x="5273" y="892" width="1731" height="852"/>
+	<SubTexture name="TordBotBlowingUp0011" x="20" y="1764" width="1731" height="852"/>
+	<SubTexture name="TordBotBlowingUp0012" x="1771" y="1764" width="1731" height="852"/>
+	<SubTexture name="TordBotBlowingUp0013" x="3522" y="1764" width="1731" height="852"/>
+	<SubTexture name="TordBotBlowingUp0014" x="3522" y="1764" width="1731" height="852"/>
+	<SubTexture name="TordBotBlowingUp0015" x="5273" y="1764" width="1731" height="852"/>
+	<SubTexture name="TordBotBlowingUp0016" x="5273" y="1764" width="1731" height="852"/>
+	<SubTexture name="TordFlailing0000" x="7024" y="1764" width="213" height="169"/>
+	<SubTexture name="TordFlailing0001" x="7024" y="1764" width="213" height="169"/>
+	<SubTexture name="TordFlailing0002" x="7257" y="1764" width="213" height="169"/>
+	<SubTexture name="TordFlailing0003" x="7257" y="1764" width="213" height="169"/>
+	<SubTexture name="TordFlailing0004" x="7490" y="1764" width="213" height="169"/>
+	<SubTexture name="TordFlailing0005" x="7490" y="1764" width="213" height="169"/>
+	<SubTexture name="TordFlailing0006" x="7723" y="1764" width="213" height="169"/>
+	<SubTexture name="TordFlailing0007" x="7723" y="1764" width="213" height="169"/>
+	<SubTexture name="TordFlailing0008" x="7956" y="1764" width="213" height="169"/>
+	<SubTexture name="TordFlailing0009" x="7956" y="1764" width="213" height="169"/>
+</TextureAtlas>

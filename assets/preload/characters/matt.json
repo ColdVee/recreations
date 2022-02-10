@@ -1,0 +1,117 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "MattSnappingFinger",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-70,
+				-3
+			],
+			"anim": "shock",
+			"fps": 24,
+			"name": "MattReactionTord",
+			"indices": []
+		},
+		{
+			"loop": true,
+			"offsets": [
+				-100,
+				-10
+			],
+			"anim": "walking",
+			"fps": 24,
+			"name": "MattWalking",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "idle-salt",
+			"fps": 24,
+			"name": "MattPISSED",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-60,
+				2
+			],
+			"anim": "turn",
+			"fps": 24,
+			"name": "MattReaction0",
+			"indices": []
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [
+				5,
+				5,
+				6,
+				6
+			],
+			"fps": 24,
+			"anim": "relief-idle",
+			"loop": true,
+			"name": "MattHarpoonBit"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18
+			],
+			"fps": 24,
+			"anim": "relief-end",
+			"loop": false,
+			"name": "MattHarpoonBit"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "challenges/edds/matt",
+	"position": [
+		0,
+		0
+	],
+	"healthicon": "face",
+	"flip_x": false,
+	"healthbar_colors": [
+		161,
+		161,
+		161
+	],
+	"camera_position": [
+		0,
+		0
+	],
+	"sing_duration": 6.1,
+	"scale": 1.5
+}

@@ -58,11 +58,15 @@ class ChartingState extends MusicBeatState
 	public static var noteTypeList:Array<String> = //Used for backwards compatibility with 0.1 - 0.3.2 charts, though, you should add your hardcoded custom note types here too.
 	[
 		'',
+		'Extra Foe Sing',
+		'dad Sing',
+		'dad SingFAST',
 		'Alt Animation',
 		'Hey!',
 		'Hurt Note',
 		'GF Sing',
-		'No Animation'
+		'No Animation',
+		'Missile'
 	];
 	private var noteTypeIntMap:Map<Int, String> = new Map<Int, String>();
 	private var noteTypeMap:Map<String, Null<Int>> = new Map<String, Null<Int>>();
@@ -71,15 +75,26 @@ class ChartingState extends MusicBeatState
 	var eventStuff:Array<Dynamic> =
 	[
 		['', "Nothing. Yep, that's right."],
+		['alarm', "END SHIT"],
+		['Endshit', "END SHIT"],
 		['Hey!', "Plays the \"Hey!\" animation from Bopeebo,\nValue 1: BF = Only Boyfriend, GF = Only Girlfriend,\nSomething else = Both.\nValue 2: Custom animation duration,\nleave it blank for 0.6s"],
 		['Set GF Speed', "Sets GF head bopping speed,\nValue 1: 1 = Normal speed,\n2 = 1/2 speed, 4 = 1/4 speed etc.\nUsed on Fresh during the beatbox parts.\n\nWarning: Value must be integer!"],
 		['Blammed Lights', "Value 1: 0 = Turn off, 1 = Blue, 2 = Green,\n3 = Pink, 4 = Red, 5 = Orange, Anything else = Random.\n\nNote to modders: This effect is starting to get \nREEEEALLY overused, this isn't very creative bro smh."],
 		['Kill Henchmen', "For Mom's songs, don't use this please, i love them :("],
 		['Add Camera Zoom', "Used on MILF on that one \"hard\" part\nValue 1: Camera zoom add (Default: 0.015)\nValue 2: UI zoom add (Default: 0.03)\nLeave the values blank if you want to use Default."],
+		['Alter Camera Bouncing', "Alters the Intensity and Speed of the camera bounce.\nValue 1: Beats to hit (Default: 4)\nValue 2: Bounce Intensity (Default: 0)\nLeave the values blank if you want to use Default."],
+		['Alter Camera Zoom', "Sets the zoom value\nValue 1: Zoom Value (Default: 1)\nValue 2: dont put in a number to do an instant zoom, otherwise put in a number to do a smooth zoom  (Default:)"],
+		['Object Set Pos', "Refers to an object contained inside of an array that was added manually, meaning it only refers to specific objects.\nValue 1: Object Name\nValue 2: X, Y"],
+		['Object Play Animation', "Refers to an object contained inside of an array that was added manually, meaning it only refers to specific objects.\nValue 1: Object Name\nValue 2: Animation Name"],
+		['Object Play Animation Reverse', "Refers to an object contained inside of an array that was added manually, meaning it only refers to specific objects.\nValue 1: Object Name\nValue 2: Animation Name"],
+		['Object Visibility Alter', "Refers to an object contained inside of an array that was added manually, meaning it only refers to specific objects.\nValue 1: Object Name\nValue 2: Turn Visible or Invisible (visible = true, invisible = false)"],
 		['BG Freaks Expression', "Should be used only in \"school\" Stage!"],
 		['Trigger BG Ghouls', "Should be used only in \"schoolEvil\" Stage!"],
 		['Play Animation', "Plays an animation on a Character,\nonce the animation is completed,\nthe animation changes to Idle\n\nValue 1: Animation to play.\nValue 2: Character (Dad, BF, GF)"],
 		['Camera Follow Pos', "Value 1: X\nValue 2: Y\n\nThe camera won't change the follow point\nafter using this, for getting it back\nto normal, leave both values blank."],
+		['Snap Cam Follow', "Value 1: X\nValue 2: Y\n\nThe camera won't change the follow point\nafter using this, for getting it back\nto normal, leave both values blank."],
+		['Object Tween Linear', "Refers to an object contained inside of an array that was added manually, meaning it only refers to specific objects.\nValue 1: Object Name\nValue 2: Values\nValues: \"goalX, goalY, duration\""],
+		['Camera Zoom Tween', "Sets the zoom value by tweening\nValue 1: Zoom Value (Default: 1)\nValue 2: tween duration (Default: 2)"],
 		['Alt Idle Animation', "Sets a specified suffix after the idle animation name.\nYou can use this to trigger 'idle-alt' if you set\nValue 2 to -alt\n\nValue 1: Character to set (Dad, BF or GF)\nValue 2: New suffix (Leave it blank to disable)"],
 		['Screen Shake', "Value 1: Camera shake\nValue 2: HUD shake\n\nEvery value works as the following example: \"1, 0.05\".\nThe first number (1) is the duration.\nThe second number (0.05) is the intensity."],
 		['Change Character', "Value 1: Character to change (Dad, BF, GF)\nValue 2: New character's name"],
@@ -526,6 +541,14 @@ class ChartingState extends MusicBeatState
 		});
 		player2DropDown.selectedLabel = _song.player2;
 		blockPressWhileScrolling.push(player2DropDown);
+		
+		var player2DDropDown = new FlxUIDropDownMenuCustom(player1DropDown.x + 80, player2DropDown.y, FlxUIDropDownMenuCustom.makeStrIdLabelArray(characters, true), function(character:String)
+		{
+			_song.player3 = characters[Std.parseInt(character)];
+			updateHeads();
+		});
+		player2DDropDown.selectedLabel = _song.player3;
+		blockPressWhileScrolling.push(player2DDropDown);
 
 		#if MODS_ALLOWED
 		var directories:Array<String> = [Paths.mods('stages/'), Paths.mods(Paths.currentModDirectory + '/stages/'), Paths.getPreloadPath('stages/')];
@@ -605,6 +628,7 @@ class ChartingState extends MusicBeatState
 		tab_group_song.add(new FlxText(stepperSpeed.x, stepperSpeed.y - 15, 0, 'Song Speed:'));
 		tab_group_song.add(new FlxText(player2DropDown.x, player2DropDown.y - 15, 0, 'Opponent:'));
 		tab_group_song.add(new FlxText(player3DropDown.x, player3DropDown.y - 15, 0, 'Girlfriend:'));
+		tab_group_song.add(new FlxText(player2DDropDown.x, player2DDropDown.y - 15, 0, 'Extra Foe:'));
 		tab_group_song.add(new FlxText(player1DropDown.x, player1DropDown.y - 15, 0, 'Boyfriend:'));
 		tab_group_song.add(new FlxText(stageDropDown.x, stageDropDown.y - 15, 0, 'Stage:'));
 		tab_group_song.add(new FlxText(noteSkinInputText.x, noteSkinInputText.y - 15, 0, 'Note Texture:'));
@@ -612,6 +636,7 @@ class ChartingState extends MusicBeatState
 		tab_group_song.add(player2DropDown);
 		tab_group_song.add(player3DropDown);
 		tab_group_song.add(player1DropDown);
+		tab_group_song.add(player2DDropDown);
 		tab_group_song.add(stageDropDown);
 
 		UI_box.addGroup(tab_group_song);
@@ -622,6 +647,8 @@ class ChartingState extends MusicBeatState
 	var stepperLength:FlxUINumericStepper;
 	var check_mustHitSection:FlxUICheckBox;
 	var check_gfSection:FlxUICheckBox;
+	var check_dadSection:FlxUICheckBox;
+	var check_foeSection:FlxUICheckBox;
 	var check_changeBPM:FlxUICheckBox;
 	var stepperSectionBPM:FlxUINumericStepper;
 	var check_altAnim:FlxUICheckBox;
@@ -647,6 +674,14 @@ class ChartingState extends MusicBeatState
 		check_gfSection.name = 'check_gf';
 		check_gfSection.checked = _song.notes[curSection].gfSection;
 		// _song.needsVoices = check_mustHit.checked;
+		
+		check_dadSection = new FlxUICheckBox(130, 130, null, null, "DAD section", 100);
+		check_dadSection.name = 'check_dad';
+		check_dadSection.checked = _song.notes[curSection].dadSection;
+		
+		check_foeSection = new FlxUICheckBox(130, 80, null, null, "FOE section", 100);
+		check_foeSection.name = 'check_foe';
+		check_foeSection.checked = _song.notes[curSection].foeSection;
 
 		check_altAnim = new FlxUICheckBox(10, 60, null, null, "Alt Animation", 100);
 		check_altAnim.checked = _song.notes[curSection].altAnim;
@@ -806,6 +841,8 @@ class ChartingState extends MusicBeatState
 		tab_group_section.add(stepperSectionBPM);
 		tab_group_section.add(check_mustHitSection);
 		tab_group_section.add(check_gfSection);
+		tab_group_section.add(check_dadSection);
+		tab_group_section.add(check_foeSection);
 		tab_group_section.add(check_altAnim);
 		tab_group_section.add(check_changeBPM);
 		tab_group_section.add(copyButton);
@@ -1277,7 +1314,16 @@ class ChartingState extends MusicBeatState
 
 					updateGrid();
 					updateHeads();
+				case 'DAD section':
+					_song.notes[curSection].dadSection = check.checked;
 
+					updateGrid();
+					updateHeads();
+				case 'FOE section':
+					_song.notes[curSection].foeSection = check.checked;
+
+					updateGrid();
+					updateHeads();
 				case 'Change BPM':
 					_song.notes[curSection].changeBPM = check.checked;
 					FlxG.log.add('changed bpm shit');
@@ -2134,6 +2180,8 @@ class ChartingState extends MusicBeatState
 		stepperLength.value = sec.lengthInSteps;
 		check_mustHitSection.checked = sec.mustHitSection;
 		check_gfSection.checked = sec.gfSection;
+		check_dadSection.checked = sec.dadSection;
+		check_foeSection.checked = sec.foeSection;
 		check_altAnim.checked = sec.altAnim;
 		check_changeBPM.checked = sec.changeBPM;
 		stepperSectionBPM.value = sec.bpm;
@@ -2150,13 +2198,23 @@ class ChartingState extends MusicBeatState
 		{
 			leftIcon.changeIcon(healthIconP1);
 			rightIcon.changeIcon(healthIconP2);
+			if (_song.notes[curSection].dadSection && _song.notes[curSection].foeSection)
+			leftIcon.changeIcon(healthIconP2);
+			else if (!_song.notes[curSection].dadSection && _song.notes[curSection].foeSection)
+			leftIcon.changeIcon(healthIconP2);
 			if (_song.notes[curSection].gfSection) leftIcon.changeIcon('gf');
+			if (_song.notes[curSection].foeSection) rightIcon.changeIcon(_song.player3);
 		}
 		else
 		{
 			leftIcon.changeIcon(healthIconP2);
 			rightIcon.changeIcon(healthIconP1);
+			if (_song.notes[curSection].dadSection && _song.notes[curSection].foeSection)
+			rightIcon.changeIcon(healthIconP2);
+			else if (!_song.notes[curSection].dadSection && _song.notes[curSection].foeSection)
+			rightIcon.changeIcon(healthIconP2);
 			if (_song.notes[curSection].gfSection) leftIcon.changeIcon('gf');
+			if (_song.notes[curSection].foeSection) leftIcon.changeIcon(_song.player3);
 		}
 	}
 
@@ -2410,6 +2468,8 @@ class ChartingState extends MusicBeatState
 			changeBPM: false,
 			mustHitSection: true,
 			gfSection: false,
+			dadSection: false,
+			foeSection: false,
 			sectionNotes: [],
 			typeOfSection: 0,
 			altAnim: false
@@ -2685,7 +2745,7 @@ class ChartingState extends MusicBeatState
 
 			player1: _song.player1,
 			player2: _song.player2,
-			player3: null,
+			player3: _song.player3,
 			gfVersion: _song.gfVersion,
 			stage: _song.stage,
 			validScore: false
@@ -2760,3 +2820,4 @@ class AttachedFlxText extends FlxText
 		}
 	}
 }
+//

@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="tord.png">
+	<!-- Created with Adobe Animate version 20.0.3.25487 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="TordButtonPress0000" x="20" y="20" width="1352" height="1039"/>
+	<SubTexture name="TordButtonPress0001" x="20" y="20" width="1352" height="1039"/>
+	<SubTexture name="TordButtonPress0002" x="1392" y="20" width="1352" height="1039"/>
+	<SubTexture name="TordButtonPress0003" x="1392" y="20" width="1352" height="1039"/>
+	<SubTexture name="TordButtonPress0004" x="2764" y="20" width="1352" height="1039"/>
+	<SubTexture name="TordButtonPress0005" x="2764" y="20" width="1352" height="1039"/>
+	<SubTexture name="TordButtonPress0006" x="4136" y="20" width="1352" height="1039"/>
+	<SubTexture name="TordButtonPress0007" x="4136" y="20" width="1352" height="1039"/>
+	<SubTexture name="TordButtonPress0008" x="5508" y="20" width="1352" height="1039"/>
+	<SubTexture name="TordButtonPress0009" x="5508" y="20" width="1352" height="1039"/>
+	<SubTexture name="TordDown0000" x="20" y="1079" width="1437" height="1007"/>
+	<SubTexture name="TordDown0001" x="1477" y="1079" width="1437" height="1007"/>
+	<SubTexture name="TordDown0002" x="2934" y="1079" width="1437" height="1007"/>
+	<SubTexture name="TordDown0003" x="2934" y="1079" width="1437" height="1007"/>
+	<SubTexture name="TordDown0004" x="4391" y="1079" width="1437" height="1007"/>
+	<SubTexture name="TordDown0005" x="4391" y="1079" width="1437" height="1007"/>
+	<SubTexture name="TordDown0006" x="5848" y="1079" width="1437" height="1007"/>
+	<SubTexture name="TordIdle0000" x="20" y="2106" width="1352" height="1015"/>
+	<SubTexture name="TordIdle0001" x="1392" y="2106" width="1352" height="1015"/>
+	<SubTexture name="TordIdle0002" x="2764" y="2106" width="1352" height="1015"/>
+	<SubTexture name="TordIdle0003" x="4136" y="2106" width="1352" height="1015"/>
+	<SubTexture name="TordIdle0004" x="5508" y="2106" width="1352" height="1015"/>
+	<SubTexture name="TordIdle0005" x="20" y="3141" width="1352" height="1015"/>
+	<SubTexture name="TordIdle0006" x="1392" y="3141" width="1352" height="1015"/>
+	<SubTexture name="TordIdle0007" x="2764" y="3141" width="1352" height="1015"/>
+	<SubTexture name="TordIdle0008" x="4136" y="3141" width="1352" height="1015"/>
+	<SubTexture name="TordIdle0009" x="4136" y="3141" width="1352" height="1015"/>
+	<SubTexture name="TordIdle0010" x="5508" y="3141" width="1352" height="1015"/>
+	<SubTexture name="TordIdle0011" x="5508" y="3141" width="1352" height="1015"/>
+	<SubTexture name="TordIdle0012" x="4136" y="3141" width="1352" height="1015"/>
+	<SubTexture name="TordIdle0013" x="4136" y="3141" width="1352" height="1015"/>
+	<SubTexture name="TordLeft0000" x="20" y="4176" width="1410" height="1026"/>
+	<SubTexture name="TordLeft0001" x="1450" y="4176" width="1410" height="1026"/>
+	<SubTexture name="TordLeft0002" x="2880" y="4176" width="1410" height="1026"/>
+	<SubTexture name="TordLeft0003" x="2880" y="4176" width="1410" height="1026"/>
+	<SubTexture name="TordLeft0004" x="4310" y="4176" width="1410" height="1026"/>
+	<SubTexture name="TordLeft0005" x="4310" y="4176" width="1410" height="1026"/>
+	<SubTexture name="TordRight0000" x="5740" y="4176" width="1352" height="1007"/>
+	<SubTexture name="TordRight0001" x="20" y="5222" width="1352" height="1007"/>
+	<SubTexture name="TordRight0002" x="1392" y="5222" width="1352" height="1007"/>
+	<SubTexture name="TordRight0003" x="1392" y="5222" width="1352" height="1007"/>
+	<SubTexture name="TordRight0004" x="2764" y="5222" width="1352" height="1007"/>
+	<SubTexture name="TordRight0005" x="2764" y="5222" width="1352" height="1007"/>
+	<SubTexture name="TordRight0006" x="4136" y="5222" width="1352" height="1007"/>
+	<SubTexture name="TordRight0007" x="4136" y="5222" width="1352" height="1007"/>
+	<SubTexture name="TordUp0000" x="5508" y="5222" width="1237" height="1089"/>
+	<SubTexture name="TordUp0001" x="6765" y="5222" width="1237" height="1089"/>
+	<SubTexture name="TordUp0002" x="20" y="6331" width="1237" height="1089"/>
+	<SubTexture name="TordUp0003" x="20" y="6331" width="1237" height="1089"/>
+	<SubTexture name="TordUp0004" x="1277" y="6331" width="1237" height="1089"/>
+	<SubTexture name="TordUp0005" x="1277" y="6331" width="1237" height="1089"/>
+	<SubTexture name="TordUp0006" x="2534" y="6331" width="1237" height="1089"/>
+	<SubTexture name="TordUp0007" x="2534" y="6331" width="1237" height="1089"/>
+</TextureAtlas>
