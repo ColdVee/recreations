@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="parachute.png">
+	<!-- Created with Adobe Animate version 20.0.3.25487 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="TordHelicopter instance 10000" x="20" y="20" width="66" height="87"/>
+	<SubTexture name="TordHelicopter instance 10001" x="106" y="20" width="66" height="87"/>
+	<SubTexture name="TordHelicopter instance 10002" x="192" y="20" width="66" height="87"/>
+	<SubTexture name="TordHelicopter instance 10003" x="192" y="20" width="66" height="87"/>
+	<SubTexture name="TordHelicopter instance 10004" x="278" y="20" width="66" height="87"/>
+	<SubTexture name="TordHelicopter instance 10005" x="364" y="20" width="66" height="87"/>
+	<SubTexture name="TordHelicopter instance 10006" x="20" y="127" width="66" height="87"/>
+	<SubTexture name="TordHelicopter instance 10007" x="106" y="127" width="66" height="87"/>
+	<SubTexture name="TordHelicopter instance 10008" x="106" y="127" width="66" height="87"/>
+	<SubTexture name="TordHelicopter instance 10009" x="192" y="127" width="66" height="87"/>
+	<SubTexture name="TordHelicopter instance 10010" x="192" y="127" width="66" height="87"/>
+	<SubTexture name="TordHelicopter instance 10011" x="192" y="127" width="66" height="87"/>
+	<SubTexture name="TordHelicopter instance 10012" x="192" y="127" width="66" height="87"/>
+	<SubTexture name="TordHelicopter instance 10013" x="278" y="127" width="66" height="87"/>
+	<SubTexture name="TordHelicopter instance 10014" x="278" y="127" width="66" height="87"/>
+	<SubTexture name="TordHelicopter instance 10015" x="364" y="127" width="66" height="87"/>
+</TextureAtlas>

@@ -164,6 +164,10 @@ class PauseSubState extends MusicBeatSubstate
 			switch (daSelected)
 			{
 				case "Resume":
+					FlxTween.globalManager.forEach(function(twn:FlxTween)
+					{
+						twn.active = true;
+					});
 					close();
 				case 'Change Difficulty':
 					menuItems = difficultyChoices;

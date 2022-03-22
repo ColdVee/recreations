@@ -288,6 +288,7 @@ class PlayState extends MusicBeatState
 	var neighbores:BGSprite;
 	var cockpitclose:BGSprite;
 	var bot:FlxSprite;
+	var parachute:FlxSprite;
 	var redScreen:FlxSprite;
 	
 	var eddrisen:Bool = false;
@@ -298,6 +299,7 @@ class PlayState extends MusicBeatState
 	
 	var EndMix:Bool = false;
 	var spawned:Bool = false;
+	var sway:Bool = false;
 	var flashTween:FlxTween;
 
 	override public function create()
@@ -474,12 +476,11 @@ class PlayState extends MusicBeatState
 			case 'house':
 				if (EndMix)
 				{
-					addCharacterToList('tord_ext', 3);
 					addCharacterToList('eddslide', 1);
 					addCharacterToList('bfslide', 0);
 				}
 				
-				var sky:BGSprite = new BGSprite('challenges/edds/sky', -1932, -909, 0.55, 0.55);
+				var sky:BGSprite = new BGSprite('challenges/edds/sky', -1932, -1109, 0.55, 0.55);
 				sky.setGraphicSize(Std.int(sky.width * 1.2));
 				sky.updateHitbox();
 				add(sky);
@@ -487,13 +488,26 @@ class PlayState extends MusicBeatState
 				var clouds:BGSprite = new BGSprite('challenges/edds/clouds', -1824, -567.95, 0.6, 0.6);
 				add(clouds);
 				
-				var city:BGSprite = new BGSprite('challenges/edds/city', -1979, -798, 0.9, 0.9);
-				add(city);
+				if (EndMix)
+				{
+					parachute = new FlxSprite(1421, -110.15);
+					parachute.scale.set(1.4, 1.4);
+					parachute.frames = Paths.getSparrowAtlas('challenges/edds/parachute', 'shared');
+					parachute.animation.addByIndices('idle', 'TordHelicopter', [0], "", 24, false);
+					parachute.animation.addByPrefix('pull', 'TordHelicopter', 24, false);
+					parachute.scrollFactor.set(0.8, 0.8);
+					parachute.antialiasing = false;
+					parachute.visible = false;
+					parachute.animation.play('idle', true);
+					add(parachute);
+					objectArray['parachute'] = parachute;
+				}
 				
-				plane = new BGSprite('challenges/edds/plane', -1636.25, -154.05, 0.9, 0.9);
+				plane = new BGSprite('challenges/edds/plane', -1636.25, -154.05, 0.8, 0.8);
 				add(plane);
 				
-				FlxTween.tween(plane, {x: 2430.4}, 60);
+				var city:BGSprite = new BGSprite('challenges/edds/city', -1779, -850, 0.85, 0.85);
+				add(city);
 				
 				if (EndMix)
 				{
@@ -529,7 +543,7 @@ class PlayState extends MusicBeatState
 				objectArray['door'] = door;
 				add(door);
 				
-				tom = new Character(533.5, 110.25, 'tom');
+				tom = new Character(583.5, 110.25, 'tom');
 				tom.playAnim('walking', true);
 				tom.visible = false;
 				objectArray['tom'] = tom;
@@ -2175,9 +2189,107 @@ class PlayState extends MusicBeatState
 	var limoSpeed:Float = 0;
 	var small:Bool = false;
 	var increase:Bool = true;
+	var falling:Bool = false;
+	var flying:Bool = false;
+	var left:Bool = true;
+	var tween:Bool = true;
 
 	override public function update(elapsed:Float)
 	{
+		if (!flying)
+		{
+			flying = true;
+			FlxTween.tween(plane, {x: 2430.4}, 60,
+			{
+				ease: FlxEase.linear
+			});
+		}
+		
+		if (parachute != null && sway && left && tween)
+		{
+			tween = false;
+			FlxTween.tween(parachute, {x: 1347.9}, 1.4,
+			{
+				ease: FlxEase.sineInOut,
+				onComplete: function(twn:FlxTween)
+				{
+					left = false;
+					tween = true;
+				}
+			});
+		}
+		
+		if (parachute != null && sway && !left && tween)
+		{
+			tween = false;
+			FlxTween.tween(parachute, {x: 1495}, 1.4,
+			{
+				ease: FlxEase.sineInOut,
+				onComplete: function(twn:FlxTween)
+				{
+					left = true;
+					tween = true;
+				}
+			});
+		}
+		
+		/*if (parachute != null && parachute.visible == true && !falling && plane.x >= 1312.15)
+		{
+			falling = true;
+			FlxTween.tween(parachute, {y: -265.75}, 0.8,
+			{
+				ease: FlxEase.cubeIn,
+				onUpdate: function(twn:FlxTween)
+				{
+					if (paused)
+					twn.active = false;
+					else
+					twn.active = true;
+				},
+				onComplete: function(twn:FlxTween)
+				{
+					FlxTween.cancelTweensOf(parachute);
+					parachute.animation.play('pull', true);
+					//tween up
+					FlxTween.tween(parachute, {y: -359.15}, 0.8,
+					{
+						ease: FlxEase.expoOut,
+						onUpdate: function(twn:FlxTween)
+						{
+							if (paused)
+							twn.active = false;
+							else
+							twn.active = true;
+						},
+						onComplete: function(twn:FlxTween)
+						{
+							FlxTween.cancelTweensOf(parachute);
+							parachute.animation.play('end', true);
+							FlxTween.tween(parachute, {y: 442.1}, 10,
+							{
+								//tween down
+									ease: FlxEase.expoOut,
+									onUpdate: function(twn:FlxTween)
+									{
+										if (paused)
+										twn.active = false;
+										else
+										twn.active = true;
+									},
+									onComplete: function(twn:FlxTween)
+									{
+										FlxTween.cancelTweensOf(parachute);
+										parachute.kill();
+									}
+								//tween down
+							});
+						}
+					});
+					//tween up
+				}
+			});
+		}*/
+		
 		if (EndMix && bot.animation.curAnim.curFrame >= 2 && bot.animation.curAnim.name == 'explode-blow' && flail.visible == false){
 			flail.visible = true;
 			FlxTween.tween(flail, {y: -1484.1}, 1, 
@@ -2201,6 +2313,8 @@ class PlayState extends MusicBeatState
 		
 		if (SONG.notes[Math.floor(curStep / 16)] != null && SONG.notes[Math.floor(curStep / 16)].dadSection)
 		GameOverSubstate.characterName = 'edd-dead';
+		else if (SONG.notes[Math.floor(curStep / 16)] != null && !SONG.notes[Math.floor(curStep / 16)].dadSection)
+		GameOverSubstate.characterName = 'bf';
 		
 		if (startedAlarm)
 		{
@@ -2328,38 +2442,10 @@ class PlayState extends MusicBeatState
 					});
 				});
 			}
-			
 			grpTargets.forEachAlive(function(target:FlxSprite)
 			{
-				if (target.ID == 3 && daNote.noteType == 'Missile')
+				if (daNote != null && target.ID == 3 && daNote.noteType == 'Missile')
 				{
-					/*if (daNote.strumTime - 968 <= Conductor.songPosition)
-					{
-						target.color = 0xFFFFFFFF; //white
-					}
-					
-					if (daNote.strumTime - 646 <= Conductor.songPosition)
-					{
-						target.color = 0xFFFF0000;
-					}
-					
-					if (daNote.strumTime - 484 <= Conductor.songPosition)
-					target.color = 0xFFFFFFFF;
-					
-					if (daNote.strumTime - 323 <= Conductor.songPosition)
-					target.color = 0xFFFF0000;
-					
-					if (daNote.strumTime - 242 <= Conductor.songPosition)
-					target.color = 0xFFFFFFFF;
-					
-					if (daNote.strumTime - 162 <= Conductor.songPosition)
-					target.color = 0xFFFF0000;
-					
-					if (daNote.strumTime - 81 <= Conductor.songPosition)
-					{
-						target.color = 0xFFFFFFFF;
-					}*/
-					
 					if (daNote.strumTime - 968 <= Conductor.songPosition && trigger < 1)
 					targetShit(target);
 					
@@ -2380,6 +2466,19 @@ class PlayState extends MusicBeatState
 					
 					if (daNote.strumTime - 81 <= Conductor.songPosition && trigger < 7)
 					targetShit(target);
+				}
+				else if (daNote == null && daNote.noteType == 'Missile')
+				{
+					target.active = false;
+					target.visible = false;
+
+					target.kill();
+					grpTargets.remove(target);
+					target.destroy();
+					trigger = 0;
+					new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+						spawned = false;
+					});
 				}
 			});
 		});
@@ -2617,6 +2716,10 @@ class PlayState extends MusicBeatState
 					FlxG.sound.music.pause();
 					vocals.pause();
 				}
+				FlxTween.globalManager.forEach(function(twn:FlxTween)
+				{
+					twn.active = false;
+				});
 				openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 				//}
 		
@@ -3312,6 +3415,40 @@ class PlayState extends MusicBeatState
 					{
 						case 'true':
 							if (objectArray[value1] != null) {
+								if (value1.toLowerCase().trim() == 'parachute')
+								{
+									FlxTween.tween(parachute, {y: 75.2}, 0.75,
+									{
+										ease: FlxEase.cubeIn,
+										onComplete: function(twn:FlxTween)
+										{
+											FlxTween.cancelTweensOf(parachute);
+											parachute.animation.play('pull', true);
+											//tween up
+											FlxTween.tween(parachute, {y: parachute.y - 75, x: parachute.x + 30}, 0.7,
+											{
+												ease: FlxEase.cubeOut,
+												onComplete: function(twn:FlxTween)
+												{
+													sway = true;
+													FlxTween.cancelTweensOf(parachute);
+													FlxTween.tween(parachute, {y: 442.1}, 16,
+													{
+														//tween down
+															ease: FlxEase.linear,
+															onComplete: function(twn:FlxTween)
+															{
+																FlxTween.cancelTweensOf(parachute);
+																parachute.kill();
+															}
+														//tween down
+													});
+												}
+											});
+											//tween up
+										}
+									});
+								}
 								objectArray[value1].visible = true;
 							}
 						case 'false':
@@ -4427,7 +4564,24 @@ class PlayState extends MusicBeatState
 		note.hit = true;
 		if (!note.wasGoodHit)
 		{
-			if(cpuControlled && (note.ignoreNote || note.hitCausesMiss)) return;
+			if (cpuControlled && (note.ignoreNote || note.hitCausesMiss)) return;
+			
+			grpTargets.forEachAlive(function(target:FlxSprite)
+			{
+				if (note.noteType == 'Missile')
+				{
+					target.active = false;
+					target.visible = false;
+
+					target.kill();
+					grpTargets.remove(target);
+					target.destroy();
+					trigger = 0;
+					new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+						spawned = false;
+					});
+				}
+			});
 
 			if(note.hitCausesMiss) {
 				noteMiss(note);
